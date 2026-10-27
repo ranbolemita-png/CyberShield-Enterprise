@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="author" content="Ranbo Lemita">
+  <meta name="keywords" content="Midre Kenean Hotel">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Midre Kenean Hotel</title>
+ 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+ 
+  <link rel="stylesheet" href="MKH.css">
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="nav-left">
+      <h1 class="brand-name">Midre Kenean Hotel</h1>
+      <span class="divider">|</span>
+      <nav class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">Services</a>
+        <a href="#">Gallery</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </nav>
+    </div>
+
+    <div class="nav-right">
+      <div class="social-icons">
+        <a href="#" class="icon-circle"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" class="icon-circle"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="icon-circle"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#" class="icon-circle"><i class="fa-brands fa-linkedin-in"></i></a>
+      </div>
+      <a href="#" class="btn-book">Book a room</a>
+    </div>
+  </header>
+
+
+  <main class="hero-container">
+    
+  
+    <div class="hero-text-container">
+      <span class="subtitle">Hotel Lodging</span>
+      <h2 class="main-headline">
+        A refined hospitality experience in the heart of Tepi.
+      </h2>
+      <p class="hero-description">
+        Midre Kenean Hotel welcomes you with clean, quiet rooms in the heart of Tepi. A friendly place to rest, whether you're passing through or staying a while.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#" class="btn-primary">Book your stay</a>
+        <a href="tel:+251917551436" class="btn-secondary">Call +251917551436</a>
+      </div>
+    </div>
+  
+    <div class="hero-image-container">
+       <img src="C:/Users/m/Downloads/MKH1.jpg" alt="Midre Kenean Hotel" class="hero-img" style="height:70.5%;">
+    </div>
+
+  </main>
+
+  <section class="rooms-section">
+    <div class="rooms-container">
+      <span class="rooms-subtitle">OUR ROOMS</span>
+      <h2 class="rooms-title"><marquee>Comfort you can actually feel</marquee></h2>
+      <p class="rooms-description">
+        We keep the essentials simple and done well: clean rooms,<br> working beds, and a quiet night's sleep in Tepi.
+      </p>
+      <div class="rooms-buttons">
+        <a href="#" class="btn-primary">Book your room</a>
+      </div>
+    </div>
+  </section>
+     
+<section class="hotel-carousel">
+  <div class="carousel-container">
+    
+    <div class="carousel-slide active">
+      <img src="C:/Users/m/Downloads/MKH11.jpg" alt="Midre Kenean Hotel" class="hero-img">
+      <div class="slide-top-overlay">
+        <span class="slide-badge">01</span>
+        <h2 class="slide-title"></b>A mattress that doesn't quit</h2>
+      </div>
+
+      <div class="slide-bottom-text">
+        Firm, supportive beds with fresh linens, so your back thanks you by morning.
+      </div>
+    </div>
+
+    <div class="carousel-slide">
+      <img src="C:/Users/m/Downloads/MKH22.jpg" alt="Midre Kenean Hotel" class="hero-img">
+      
+      <div class="slide-top-overlay">
+        <span class="slide-badge">02</span>
+        <h2 class="slide-title">Hot water that works</h2>
+      </div>
+
+      <div class="slide-bottom-text">
+        A reliable hot shower after a long day, every single time.
+      </div>
+    </div>
+
+    <div class="carousel-slide">
+      <img src="C:/Users/m/Downloads/MKH33.jpg" alt="Midre Kenean Hotel" class="hero-img">
+      
+      <div class="slide-top-overlay">
+        <span class="slide-badge">03</span>
+        <h2 class="slide-title">Quiet for real rest</h2>
+      </div>
+
+      <div class="slide-bottom-text">
+        Rooms set back from noise, so you actually get the sleep you came for.
+      </div>
+    </div>
+
+    <div class="carousel-slide">
+      <img src="C:/Users/m/Downloads/MKH144.jpg" alt="Midre Kenean Hotel" class="hero-img">
+      
+      <div class="slide-top-overlay">
+        <span class="slide-badge">04</span>
+        <h2 class="slide-title">A desk that's usable</h2>
+      </div>
+
+      <div class="slide-bottom-text">
+        A real spot with a chair and lamp, not a shelf balanced on a cabinet.
+      </div>
+    </div>
+
+    <div class="carousel-dots">
+      <span class="dot active" onclick="currentSlide(0)"></span>
+      <span class="dot" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+      <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  let slideIndex = 0;
+  showSlides();
+
+  function showSlides() {
+    let slides = document.getElementsByClassName("carousel-slide");
+    let dots = document.getElementsByClassName("dot");
+    
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].classList.remove("active");
+    }
+    for (let i = 0; i < dots.length; i++) {
+      dots[i].classList.remove("active");
+    }
+    
+    slideIndex++;
+    if (slideIndex > slides.length) { slideIndex = 1; }
+    
+    slides[slideIndex - 1].classList.add("active");
+    dots[slideIndex - 1].classList.add("active");
+    
+    setTimeout(showSlides, 5000);
+  }
+
+  function currentSlide(n) {
+    slideIndex = n;
+    let slides = document.getElementsByClassName("carousel-slide");
+    let dots = document.getElementsByClassName("dot");
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].classList.remove("active");
+    }
+    for (let i = 0; i < dots.length; i++) {
+      dots[i].classList.remove("active");
+    }
+    slides[n].classList.add("active");
+    dots[n].classList.add("active");
+  }
+</script>
+
+<section class="testimonial-section">
+  <div class="testimonial-container">
+    
+    <div class="testimonial-slide active">
+      <div class="quote-box">
+        <span class="quote-symbol">&#10077;</span>
+      </div>
+      <h2 class="testimonial-heading">
+        The room was clean, quiet, and the bed was wonderfully comfortable.
+      </h2>
+      <p class="testimonial-subtext">
+        It was exactly what I needed after a long journey through the region. I made sure every detail was taken care of.
+      </p>
+      <div class="testimonial-author-box">
+        <img src="C:/Users/m/Downloads/MKH111.jpg" alt="Alemayehu Tadesse" class="author-photo">
+        <h3 class="author-name">Alemayehu Tadesse</h3>
+        <p class="author-title">Visiting from Addis Ababa</p>
+      </div>
+    </div>
+
+    <div class="testimonial-slide">
+      <div class="quote-box">
+        <span class="quote-symbol">&#10077;</span>
+      </div>
+      <h2 class="testimonial-heading">
+        A friendly welcome and a peaceful night's sleep in the heart of Tepi.
+      </h2>
+      <p class="testimonial-subtext">
+        I was passing through on business and could not have asked for a more restful stop. Midre Kenean hotel feels like a home away from home.
+      </p>
+      <div class="testimonial-author-box">
+        <img src="C:/Users/m/Downloads/MKH222.jpg" alt="Hanna Gebre" class="author-photo">
+        <h3 class="author-name">Hanna Gebre</h3>
+        <p class="author-title">Business visitor from Jimma</p>
+      </div>
+    </div>
+
+    <div class="testimonial-slide">
+      <div class="quote-box">
+        <span class="quote-symbol">&#10077;</span>
+      </div>
+      <h2 class="testimonial-heading">
+        Simple, comfortable lodging with a genuinely caring host.
+      </h2>
+      <p class="testimonial-subtext">
+        I checked that everything was in order and even helped me plan my next day. You can tell this place is run with real heart.
+      </p>
+      <div class="testimonial-author-box">
+        <img src="C:/Users/m/Downloads/MKH333.jpg" alt="Yonas Bekele" class="author-photo">
+        <h3 class="author-name">Yonas Bekele</h3>
+        <p class="author-title">Traveler Exploring The Southern Nations</p>
+      </div>
+    </div>
+
+    <div class="testimonial-dots">
+      <span class="t-dot active" onclick="currentTestimonial(0)"></span>
+      <span class="t-dot" onclick="currentTestimonial(1)"></span>
+      <span class="t-dot" onclick="currentTestimonial(2)"></span>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  let testimonialIndex = 0;
+  
+  function showTestimonial(index) {
+    const slides = document.querySelectorAll('.testimonial-slide');
+    const dots = document.querySelectorAll('.t-dot');
+
+    if (slides.length === 0) return;
+
+    
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+
+   
+    testimonialIndex = index;
+    if (testimonialIndex >= slides.length) testimonialIndex = 0;
+    if (testimonialIndex < 0) testimonialIndex = slides.length - 1;
+
+    
+    slides[testimonialIndex].classList.add('active');
+    if (dots[testimonialIndex]) {
+      dots[testimonialIndex].classList.add('active');
+    }
+  }
+
+  
+  function currentTestimonial(index) {
+    showTestimonial(index);
+  }
+
+  
+  setInterval(() => {
+    testimonialIndex++;
+    showTestimonial(testimonialIndex);
+  }, 5000);
+</script>
+ 
+<section class="local-partners-section">
+  <div class="partners-container">
+    <span class="partners-subtitle">LOCAL PARTNERS</span>
+    <h2 class="partners-title">Rooted in Tepi's community</h2>
+    <p class="partners-description">
+      We work with local guides, cafes, and tour operators so you can experience the Southern Nations like a neighbor, not a tourist.
+    </p>
+    <a href="#contact" class="partners-button">Ask us for recommendations</a>
+  </div>
+</section>
+
+<div class="partners-grid">
+  <div class="partner-card">
+    <div class="partner-logo-box">
+      <img src="C:/Users/m/Downloads/MKHTT.jpg" alt="Midre Kenean Hotel" class="hero-img">
+    </div>
+    <h3 class="partner-name">Tepi Coffee Estate</h3>
+  </div>
+
+  <div class="partner-card">
+    <div class="partner-logo-box">
+       <img src="C:/Users/m/Downloads/MKHET.jpg" alt="Midre Kenean Hotel" class="hero-img">
+    </div>
+    <h3 class="partner-name">Kaffa & Tepi Eco-Tours</h3>
+  </div>
+
+  <div class="partner-card">
+    <div class="partner-logo-box">
+       <img src="C:/Users/m/Downloads/MKHBSR.jpg" alt="Midre Kenean Hotel" class="hero-img">
+    </div>
+    <h3 class="partner-name">Sheka Biosphere Reserve</h3>
+  </div>
+
+  <div class="partner-card">
+    <div class="partner-logo-box">
+       <img src="C:/Users/m/Downloads/MKHLT.jpg" alt="Midre Kenean Hotel" class="hero-img">
+    </div>
+    <h3 class="partner-name">Tepi Local Transport</h3>
+  </div>
+
+  <div class="partner-card">
+    <div class="partner-logo-box">
+       <img src="C:/Users/m/Downloads/MKHGR.jpg" alt="Midre Kenean Hotel" class="hero-img">
+    </div>
+    <h3 class="partner-name">Gojeb River Guides</h3>
+  </div>
+
+  <div class="partner-card">
+    <div class="partner-logo-box">
+       <img src="C:/Users/m/Downloads/MKHCC.jpg" alt="Midre Kenean Hotel" class="hero-img">
+    </div>
+    <h3 class="partner-name">Cultural Heritage Center</h3>
+  </div>
+
+  <div class="partner-card">
+    <div class="partner-logo-box">
+      <img src="C:/Users/m/Downloads/MKHGSC.jpg" alt="Midre Kenean Hotel" class="hero-img">
+    </div>
+    <h3 class="partner-name">Green Shade Cafe</h3>
+  </div>
+
+  <div class="partner-card">
+    <div class="partner-logo-box">
+      <img src="C:/Users/m/Downloads/MKHHS.jpg" alt="Midre Kenean Hotel" class="hero-img">
+    </div>
+    <h3 class="partner-name">Honey & Spices Market</h3>
+  </div>
+</div>
+
+<section class="stay-plan-section">
+  <div class="stay-plan-container">
+    <span class="section-tag">YOUR STAY PLAN</span>
+    <h2 class="section-title">A straightforward <br> booking process for <br> your Tepi stay</h2>
+    <p class="section-description">
+      Booking at Midre Kenean Hotel is simple. Tell us your travel dates, and we'll help you plan a comfortable stay in Tepi.
+    </p>
+  </div>
+</section>
+
+<section class="faq-section">
+  <div class="faq-container">
+    <h2 class="faq-title">Questions before you book?</h2>
+
+    <div class="faq-accordion">
+      <!-- ጥያቄ 1 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>What's the check-in and check-out time?</span>
+          <span class="faq-icon">&#10095;</span>
+        </button>
+        <div class="faq-answer">
+          <p>Check-in is from 2:00 PM, and check-out is until 12:00 PM. Early check-in or late check-out can be arranged based on availability.</p>
+        </div>
+      </div>
+
+      <!-- ጥያቄ 2 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Is breakfast included with my stay?</span>
+          <span class="faq-icon">&#10095;</span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes, a complimentary local and international breakfast is included with every room booking.</p>
+        </div>
+      </div>
+
+      <!-- ጥያቄ 3 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Can I book a room for just one night?</span>
+          <span class="faq-icon">&#10095;</span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes, single-night bookings are welcome based on room availability.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

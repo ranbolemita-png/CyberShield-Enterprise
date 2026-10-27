@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield Enterprise Dashboard - INSA Audit</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js for Visual Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans">
+    <div class="max-w-7xl mx-auto p-6">
+        <!-- Header -->
+        <header class="mb-8 border-b border-slate-700 pb-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>
+                <h1 class="text-3xl font-bold text-cyan-400">CyberShield Enterprise Platform</h1>
+                <p class="text-slate-400">Advanced Vulnerability Assessment & Analytics Dashboard</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="bg-cyan-900 text-cyan-300 text-xs px-3 py-1 rounded-full font-mono border border-cyan-700">Role: Senior Auditor (INSA)</span>
+                <a href="/api/export-csv" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2 px-4 rounded-lg shadow transition duration-200 flex items-center gap-2 text-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    Export CSV Report
+                </a>
+            </div>
+        </header>
+
+        <!-- Main Grid: Audit Input & Analytics Chart -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Start Audit Card -->
+            <div class="lg:col-span-2 bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-lg flex flex-col justify-between">
+                <div>
+                    <h2 class="text-xl font-semibold mb-4 text-cyan-300">Initiate Security Audit</h2>
+                    <p class="text-slate-400 text-sm mb-4">Perform OWASP 12-header compliance check and vulnerability assessment in real-time.</p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <input type="text" id="targetInput" placeholder="Enter target IP or URL (e.g. amu.edu.et)" class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-slate-200 focus:outline-none focus:border-cyan-500">
+                    <button id="auditBtn" onclick="runAudit()" class="bg-cyan-600 hover:bg-cyan-500 text-white font-semibold px-6 py-2 rounded-lg transition duration-200 flex items-center justify-center gap-2">
+                        <span id="btnText">Run Audit</span>
+                        <!-- Loading Spinner -->
+                        <svg id="loadingSpinner" class="animate-spin h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Analytics Chart Card -->
+            <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-lg flex flex-col items-center justify-center">
+                <h3 class="text-sm font-semibold text-slate-300 mb-2">Vulnerability Risk Distribution</h3>
+                <div class="w-40 h-40">
+                    <canvas id="riskChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Logs Section with Search Bar -->
+        <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-lg">
+            <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+                <h2 class="text-xl font-semibold text-cyan-300">Audit History Logs</h2>
+                <!-- Search Bar -->
+                <input type="text" id="searchInput" onkeyup="filterLogs()" placeholder="Search target domain..." class="bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-sm text-slate-200 focus:outline-none focus:border-cyan-500 w-full sm:w-64">
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-slate-700 text-slate-400 text-sm">
+                            <th class="p-3">Target IP / Domain</th>
+                            <th class="p-3">Date & Time</th>
+                            <th class="p-3">Status</th>
+                            <th class="p-3">Risk Score</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logsTable">
+                        <!-- Dynamic content -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript & Chart logic -->
+    <script>
+        let allLogs = [];
+        let riskChartInstance = null;
+
+        async function fetchLogs() {
+            try {
+                const res = await fetch('/api/scans');
+                const data = await res.json();
+                allLogs = data.logs;
+                displayLogs(allLogs);
+                updateChart(data.stats);
+            } catch (err) {
+                console.error('Error fetching logs:', err);
+            }
+        }
+
+        function displayLogs(logs) {
+            const table = document.getElementById('logsTable');
+            if(logs.length === 0) {
+                table.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-500">No logs found.</td></tr>`;
+                return;
+            }
+            table.innerHTML = logs.map(log => {
+                let riskClass = "text-emerald-400";
+                if (log.risk.includes("High")) riskClass = "text-rose-400 font-semibold";
+                else if (log.risk.includes("Medium")) riskClass = "text-amber-400";
+                else if (log.risk.includes("Failed") || log.risk.includes("Error")) riskClass = "text-slate-400";
+
+                return `
+                    <tr class="border-b border-slate-700/50 hover:bg-slate-700/30">
+                        <td class="p-3 font-mono text-sm">${log.target}</td>
+                        <td class="p-3 text-slate-400 text-sm">${log.date}</td>
+                        <td class="p-3 text-sm">${log.status}</td>
+                        <td class="p-3 text-sm ${riskClass}">${log.risk}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function filterLogs() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = allLogs.filter(log => log.target.toLowerCase().includes(query));
+            displayLogs(filtered);
+        }
+
+        function updateChart(stats) {
+            const ctx = document.getElementById('riskChart').getContext('2d');
+            
+            let highCount = 0;
+            let medCount = 0;
+            let lowCount = 0;
+
+            for (const [key, val] of Object.entries(stats)) {
+                if (key.includes("High")) highCount += val;
+                else if (key.includes("Medium")) medCount += val;
+                else lowCount += val;
+            }
+
+            if (riskChartInstance) {
+                riskChartInstance.destroy();
+            }
+
+            riskChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['High Risk', 'Medium Risk', 'Low Risk'],
+                    datasets: [{
+                        data: [highCount, medCount, lowCount],
+                        backgroundColor: ['#f43f5e', '#fbbf24', '#34d399'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { color: '#cbd5e1', boxWidth: 10, font: { size: 10 } } }
+                    }
+                }
+            });
+        }
+
+        async function runAudit() {
+            const target = document.getElementById('targetInput').value;
+            if(!target) return alert('Please enter a target!');
+
+            const btn = document.getElementById('auditBtn');
+            const btnText = document.getElementById('btnText');
+            const spinner = document.getElementById('loadingSpinner');
+
+            btn.disabled = true;
+            btnText.textContent = "Scanning...";
+            spinner.classList.remove('hidden');
+
+            try {
+                await fetch('/api/start-audit', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({target})
+                });
+                document.getElementById('targetInput').value = '';
+                await fetchLogs();
+            } catch (err) {
+                alert('Audit failed to execute.');
+            } finally {
+                btn.disabled = false;
+                btnText.textContent = "Run Audit";
+                spinner.classList.add('hidden');
+            }
+        }
+
+        fetchLogs();
+    </script>
+</body>
+</html>

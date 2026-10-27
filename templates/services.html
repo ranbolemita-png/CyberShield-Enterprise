@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CyberShield - Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between">
+    <nav class="p-6 border-b border-slate-800 flex justify-between items-center max-w-7xl mx-auto w-full">
+        <h1 class="text-2xl font-bold text-cyan-400">CyberShield</h1>
+        <div class="space-x-6">
+            <a href="/" class="hover:text-cyan-400 transition">Home</a>
+            <a href="/services" class="text-cyan-400 font-semibold">Services</a>
+            <a href="/about" class="hover:text-cyan-400 transition">About</a>
+            <a href="/contact" class="hover:text-cyan-400 transition">Contact</a>
+            <a href="/login" class="bg-cyan-600 px-4 py-2 rounded-lg hover:bg-cyan-500 font-semibold ml-4">Login</a>
+        </div>
+    </nav>
+    <main class="max-w-7xl mx-auto px-6 py-12">
+        <h2 class="text-3xl font-bold text-cyan-300 mb-8 text-center">Our Security Services</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+                <h3 class="text-xl font-semibold text-white mb-2">OWASP 12-Header Audit</h3>
+                <p class="text-slate-400 text-sm">Comprehensive security header compliance check to prevent XSS, Clickjacking, and injection attacks.</p>
+            </div>
+            <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+                <h3 class="text-xl font-semibold text-white mb-2">Automated Scanning</h3>
+                <p class="text-slate-400 text-sm">Background scheduler that monitors registered target domains periodically without manual intervention.</p>
+            </div>
+            <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+                <h3 class="text-xl font-semibold text-white mb-2">Telegram Alert Bot</h3>
+                <p class="text-slate-400 text-sm">Instant real-time security notifications dispatched directly to your Telegram channel or chat upon risk detection.</p>
+            </div>
+        </div>
+    </main>
+    <footer class="p-6 text-center border-t border-slate-800 text-slate-500 text-sm">© 2026 CyberShield Enterprise.</footer>
+</body>
+</html>

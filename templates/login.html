@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex items-center justify-center font-sans">
+    <div class="max-w-md w-full bg-slate-800 p-8 rounded-2xl border border-slate-700 shadow-2xl">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-cyan-400">CyberShield</h1>
+            <p class="text-slate-400 text-sm mt-1">Enterprise Security Login</p>
+        </div>
+        
+        {% if error %}
+        <div class="mb-4 bg-rose-900/50 border border-rose-700 text-rose-300 px-4 py-2 rounded-lg text-sm text-center">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <form method="POST" action="/login" class="space-y-6">
+            <div>
+                <label class="block text-sm font-medium text-slate-300 mb-2">Username</label>
+                <input type="text" name="username" required placeholder="e.g. admin_rambo or auditor_insa" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-slate-200 focus:outline-none focus:border-cyan-500">
+            </div>
+            <button type="submit" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-semibold py-2.5 rounded-lg transition duration-200 shadow-lg">
+                Authenticate & Login
+            </button>
+        </form>
+        
+        <div class="mt-6 text-center text-xs text-slate-500">
+            Authorized Personnel Only • INSA / Banking Standards
+        </div>
+    </div>
+</body>
+</html>
